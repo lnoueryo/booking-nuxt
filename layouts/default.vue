@@ -102,6 +102,11 @@ export default {
           to: '/'
         },
         {
+          icon: 'mdi-apps',
+          title: 'practice',
+          to: '/practice'
+        },
+        {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
@@ -112,6 +117,9 @@ export default {
       rightDrawer: false,
       title: 'Vuetify.js'
     }
+  },
+  beforeCreate(){
+    this.$store.dispatch('loadUser')
   }
 }
 </script>

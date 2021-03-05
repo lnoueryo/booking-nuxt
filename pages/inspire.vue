@@ -1,19 +1,34 @@
 <template>
-  <v-row>
-    <v-col class="text-center">
-      <img
-        src="/v.png"
-        alt="Vuetify.js"
-        class="mb-5"
-      >
-      <blockquote class="blockquote">
-        &#8220;First, solve the problem. Then, write the code.&#8221;
-        <footer>
-          <small>
-            <em>&mdash;John Johnson</em>
-          </small>
-        </footer>
-      </blockquote>
-    </v-col>
-  </v-row>
+  <div>
+    <v-btn @click="login">Login</v-btn>
+    <v-btn @click="logout">Logout</v-btn>
+    <calendar></calendar>
+  </div>
 </template>
+<script>
+import firebase from '@/plugins/firebase'
+import Calendar from '/components/Calendar'
+export default {
+  components: {
+    Calendar
+  },
+  created(){
+    const db = firebase.firestore();
+    var bookings = db.collection('bookings');
+    bookings.get().then((response)=>{
+        response.forEach(function(booking) {
+            // this.bookings.push(booking.data());
+            console.log(booking.data())
+        });
+    })
+  },
+  methods: {
+    login(){
+      this.$store.dispatch('login', {email: 'popo62520908@gmail.com', password: '123456789'})
+    },
+    logout(){
+      this.$store.dispatch('logout')
+    }
+  }
+}
+</script>
